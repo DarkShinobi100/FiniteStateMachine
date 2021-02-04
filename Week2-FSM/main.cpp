@@ -10,7 +10,8 @@ using namespace chrono;			// seconds, milliseconds
 int main()
 {
 	bool program_running = true;
-
+	enum Emotions { CALM, ALERT, AGITATED, SURPRISED, HAPPY,ANGRY};
+	Emotions NPC = CALM;
 	cout << "Starting Finite State Machine" << endl;
 
 	do {
@@ -20,6 +21,17 @@ int main()
 		Write your code here for the finite state machine example
 
 		*/
+
+		switch (NPC)
+		{
+		case CALM: std::cout << "CALM\n";   break;
+		case ALERT: std::cout << "ALERT\n"; break;
+		case AGITATED: std::cout << "AGITATED\n";  break;
+		case SURPRISED: std::cout << "SURPRISED\n";   break;
+		case HAPPY: std::cout << "HAPPY\n"; break;
+		case ANGRY: std::cout << "ANGRY\n";  break;
+		}
+
 
 		// Sleep the current thread for 1000 milliseconds. Can be repalce with seconds(1)
 		sleep_for(milliseconds(1000));
