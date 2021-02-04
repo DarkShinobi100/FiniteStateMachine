@@ -10,7 +10,13 @@ using namespace chrono;			// seconds, milliseconds
 int main()
 {
 	bool program_running = true;
-	enum Emotions { CALM, ALERT, AGITATED, SURPRISED, HAPPY,ANGRY};
+	bool Noise = false;
+	bool PeopleNearby = false;
+	bool PeopleAggressive = false;
+	bool PeopleFriendly = false;
+	bool PeopleAttack = false;
+
+	enum Emotions{ CALM, ALERT, AGITATED, SURPRISED, HAPPY,ANGRY };
 	Emotions NPC = CALM;
 	cout << "Starting Finite State Machine" << endl;
 
@@ -24,12 +30,73 @@ int main()
 
 		switch (NPC)
 		{
-		case CALM: std::cout << "CALM\n";   break;
-		case ALERT: std::cout << "ALERT\n"; break;
-		case AGITATED: std::cout << "AGITATED\n";  break;
-		case SURPRISED: std::cout << "SURPRISED\n";   break;
-		case HAPPY: std::cout << "HAPPY\n"; break;
-		case ANGRY: std::cout << "ANGRY\n";  break;
+		case CALM: std::cout << "CALM\n";   
+			//Default state
+			//If other character appears to be friendly then they become CALM
+
+			//If NPC hears a noise at any time and there is no one else about then they become ALERT
+			if (Noise && !PeopleNearby)
+			{
+				NPC = ALERT;
+			}
+
+			//If NPC sees another character at any time they become AGITATED
+			if (PeopleNearby)
+			{
+				NPC = AGITATED;
+			}
+			break;
+		case ALERT: std::cout << "ALERT\n"; 
+			
+			//If the noise stops and nothing else happens then the NPC becomes CALM
+			if (!Noise)
+			{
+				NPC = CALM;
+			}
+			break;
+		case AGITATED: std::cout << "AGITATED\n";  
+			//If the other character starts to act aggressively then they are SURPRISED
+			if (PeopleAggressive)
+			{
+				NPC = SURPRISED;
+			}
+			//If the other character is friendly and cracks a joke then they become HAPPY
+			if (PeopleFriendly)
+			{
+				NPC = HAPPY;
+			}
+
+			//people leave
+			if (!PeopleNearby)
+			{
+				NPC = CALM;
+			}
+
+			break;
+		case SURPRISED: std::cout << "SURPRISED\n";   
+			//If the other character is aggressive and attacks they become ANGRY
+			if (PeopleAttack)
+			{
+				NPC = ANGRY;
+			}
+			
+			break;
+		case HAPPY: std::cout << "HAPPY\n"; 
+			//people leave
+			if (!PeopleNearby)
+			{
+				NPC = CALM;
+			}
+			
+			break;
+		case ANGRY: std::cout << "ANGRY\n";  
+			//people leave
+			if (!PeopleNearby)
+			{
+				NPC = CALM;
+			}
+			
+			break;
 		}
 
 
