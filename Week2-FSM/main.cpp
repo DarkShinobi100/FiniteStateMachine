@@ -7,6 +7,23 @@ using namespace std;			// cout, endl
 using namespace this_thread;	// sleep_for
 using namespace chrono;			// seconds, milliseconds
 
+bool toggle(bool input)
+{
+	bool value = false;
+
+	if (input)
+	{
+		value = false;
+	}
+	else
+	{
+		value = true;
+	}
+
+	return value;
+}
+
+
 int main()
 {
 	bool program_running = true;
@@ -32,12 +49,15 @@ int main()
 		{
 		case CALM: std::cout << "CALM\n";   
 			//Default state
-			//If other character appears to be friendly then they become CALM
+			PeopleAggressive = false;
+			PeopleFriendly = false;
+			PeopleAttack = false;
 
 			//If NPC hears a noise at any time and there is no one else about then they become ALERT
 			if (Noise && !PeopleNearby)
 			{
 				NPC = ALERT;
+
 			}
 
 			//If NPC sees another character at any time they become AGITATED
@@ -112,6 +132,33 @@ int main()
 			{
 				program_running = false;
 			}
+
+			// Check for N key. See table here http://www.asciitable.com/
+			if (input_char == 78)
+			{
+				Noise = toggle(Noise);
+			}
+			// Check for P key. See table here http://www.asciitable.com/
+			if (input_char == 80)
+			{
+				PeopleNearby = toggle(PeopleNearby);
+			}
+			// Check for A key. See table here http://www.asciitable.com/
+			if (input_char == 65)
+			{
+				PeopleAggressive = toggle(PeopleAggressive);
+			}
+			// Check for F key. See table here http://www.asciitable.com/
+			if (input_char == 70)
+			{
+				PeopleFriendly = toggle(PeopleFriendly);
+			}
+			// Check for D key. See table here http://www.asciitable.com/
+			if (input_char == 68)
+			{
+				PeopleAttack = toggle(PeopleAttack);
+			}
+
 		}
 
 	} while(program_running);
