@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+.vs/Week2-FSM/v16/Browse.VC.db
+.vs/Week2-FSM/v16/Browse.VC.opendb
